@@ -1,11 +1,10 @@
-async function fetchList() {
-  const res = await fetch("https://dummyjson.com/products");
-  const data = await res.json();
-
-  return data?.products;
-}
-
 async function ServerActionsExample() {
+  async function fetchList() {
+    "use server";
+    const res = await fetch("https://dummyjson.com/products");
+    const data = await res.json();
+    return data?.products;
+  }
   const products = await fetchList();
   console.log(products);
 
