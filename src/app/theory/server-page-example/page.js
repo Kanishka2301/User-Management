@@ -1,16 +1,19 @@
+import { fetchList } from "../../../actions";
+
 async function ServerActionsExample() {
-  async function fetchList() {
-    "use server";
-    const res = await fetch("https://dummyjson.com/products");
-    const data = await res.json();
-    return data?.products;
-  }
   const products = await fetchList();
   console.log(products);
 
   return (
     <div>
       <h1>Server actions example-server components</h1>
+      <ul>
+        {products && products.length > 0 ? (
+          products.map((item) => <li>{item.title}</li>)
+        ) : (
+          <h2>No products found</h2>
+        )}
+      </ul>
     </div>
   );
 }
