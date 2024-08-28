@@ -4,20 +4,23 @@ import { fetchList } from "@/actions";
 
 function ClientPage() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   async function getListOfProducts() {
-    try {
-      const data = await fetchList();
-      console.log(data);
-      if (data) setProducts(data);
-    } catch (error) {
-      console.error("Failed to fetch products:", error);
+    setLoading(true);
+    const data = await fetchList();
+    console.log(data);
+    if (data) {
+      setProducts(data);
+      setLoading(false);
     }
   }
 
   useEffect(() => {
     getListOfProducts();
   }, []);
+
+  if (loading) return <h1>Loading data</h1>;
 
   return (
     <div>
