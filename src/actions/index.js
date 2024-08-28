@@ -1,7 +1,13 @@
-"use server";
-
-export async function fetchList() {
-  const res = await fetch("https://dummyjson.com/products");
-  const data = await res.json();
-  return data?.products;
+import AddNewUser from "@/components/add-new-user";
+function UserMgmt() {
+  return (
+    <div className="p-20 max-w-6xl">
+      <div className="flex justify-between">
+        <h1>User Management</h1>
+        <AddNewUser />
+      </div>
+    </div>
+  );
 }
+
+export default UserMgmt;

@@ -10,13 +10,16 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { addNewUserFormControls } from "@/utils";
+import { addNewUserFormControls, addNewUserFormInitialState } from "@/utils";
 import { useState } from "react";
-
-const formControls = [];
 
 function AddNewUser() {
   const [openPopup, setOpenPopup] = useState(false);
+  const [addNewUserFormData, setaddNewUserFormData] = useState(
+    addNewUserFormInitialState
+  );
+
+  console.log(addNewUserFormData);
 
   return (
     <div>
@@ -28,7 +31,7 @@ function AddNewUser() {
           </DialogHeader>
           <div className="grid gap-4 py-4">
             {addNewUserFormControls.map((controlItem) => (
-              <div className="mb-5" key={controlItem}>
+              <div className="mb-5" key={controlItem.name}>
                 <Label htmlFor={controlItem.name} className="text-right">
                   {controlItem.label}
                 </Label>
@@ -37,11 +40,18 @@ function AddNewUser() {
                   name={controlItem.name}
                   placeholder={controlItem.placeholder}
                   className="col-span-3"
+                  type={controlItem.type}
+                  value={addNewUserFormData[controlItem.name]}
+                  onChange={(event) =>
+                    setaddNewUserFormData({
+                      ...addNewUserFormData,
+                      [controlItem.name]: event.target.value,
+                    })
+                  }
                 />
               </div>
             ))}
           </div>
-
           <DialogFooter>
             <Button type="submit">Submit</Button>
           </DialogFooter>
