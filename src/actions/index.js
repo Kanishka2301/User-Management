@@ -21,3 +21,27 @@ export async function addNewUserAction(formData) {
     };
   }
 }
+
+export async function fetchUsersAction() {
+  await connectToDB();
+  try {
+    const listOfUsers = await User.find({});
+    if (listOfUsers) {
+      return {
+        success: true,
+        data: JSON.parse(JSON.stringify(listOfUsers)),
+      };
+    } else {
+      return {
+        success: false,
+        message: "Some error occurred. Please try again.",
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      message: "Some error occurred. Please try again.",
+    };
+  }
+}
