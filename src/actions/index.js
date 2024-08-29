@@ -2,19 +2,27 @@
 
 import connectToDB from "@/database";
 import User from "@/models/user";
+import { revalidatePath } from "next/cache";
 
-export async function addNewUserAction(formData) {
+export async function addNewUserAction(formData, pathToRevalidate) {
+  await connectToDB();
   try {
-    await connectToDB();
-
     const newlyCreatedUser = await User.create(formData);
-    return {
-      success: true,
-      message: "User added successfully",
-      data: newlyCreatedUser,
-    };
+    if (newlyCreatedUser) {
+      revalidatePath(pathToRevalidate);
+      return {
+        success: true,
+        message: "User added successfully",
+        data: newlyCreatedUser,
+      };
+    } else {
+      return {
+        success: false,
+        message: "Some error occurred. Please try again.",
+      };
+    }
   } catch (error) {
-    console.error("Error creating new user:", error.message);
+    console.log(error);
     return {
       success: false,
       message: "Some error occurred. Please try again.",

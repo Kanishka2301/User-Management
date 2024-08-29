@@ -28,8 +28,13 @@ function AddNewUser() {
     );
   }
   async function handleAddNewUserAction() {
-    const result = await addNewUserAction(addNewUserFormData);
+    const result = await addNewUserAction(
+      addNewUserFormData,
+      "/user-management"
+    );
     console.log(result);
+    setOpenPopup(false);
+    setaddNewUserFormData(addNewUserFormInitialState);
   }
 
   return (
