@@ -26,6 +26,10 @@ function AddNewUser() {
       (key) => addNewUserFormData[key].trim() !== ""
     );
   }
+  async function handleAddNewUserAction() {
+    const result = await addNewUserAction(addNewUserFormData);
+    console.log(result);
+  }
 
   return (
     <div>
@@ -41,7 +45,7 @@ function AddNewUser() {
           <DialogHeader>
             <DialogTitle>Add new user</DialogTitle>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
+          <form action={handleAddNewUserAction} className="grid gap-4 py-4">
             {addNewUserFormControls.map((controlItem) => (
               <div className="mb-5" key={controlItem.name}>
                 <Label htmlFor={controlItem.name} className="text-right">
@@ -63,16 +67,16 @@ function AddNewUser() {
                 />
               </div>
             ))}
-          </div>
-          <DialogFooter>
-            <Button
-              className="disabled:opacity-55"
-              disabled={!handeSaveButtonValid()}
-              type="submit"
-            >
-              Submit
-            </Button>
-          </DialogFooter>
+            <DialogFooter>
+              <Button
+                className="disabled:opacity-55"
+                disabled={!handeSaveButtonValid()}
+                type="submit"
+              >
+                Save
+              </Button>
+            </DialogFooter>
+          </form>
         </DialogContent>
       </Dialog>
     </div>

@@ -1,13 +1,29 @@
-import AddNewUser from "@/components/add-new-user";
-function UserMgmt() {
-  return (
-    <div className="p-20 max-w-6xl">
-      <div className="flex justify-between">
-        <h1>User Management</h1>
-        <AddNewUser />
-      </div>
-    </div>
-  );
-}
+"use server";
 
-export default UserMgmt;
+import connectToDB from "@/database";
+import User from "@/models/user";
+
+export async function addNewUserAction(formData) {
+  await connectToDB();
+
+  try {
+    const newlyCreatedUser = await User.create(formData);
+    if (newlyCreatedUser) {
+      return {
+        success: true,
+        message: "User added sucessfully",
+      };
+    } else {
+      return {
+        success: false,
+        message: "Some error occured, Please try again",
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      message: "Some error occured, Please try again",
+    };
+  }
+}
