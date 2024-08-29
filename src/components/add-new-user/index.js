@@ -21,6 +21,12 @@ function AddNewUser() {
 
   console.log(addNewUserFormData);
 
+  function handeSaveButtonValid() {
+    return Object.keys(addNewUserFormData).every(
+      (key) => addNewUserFormData[key].trim() !== ""
+    );
+  }
+
   return (
     <div>
       <Button onClick={() => setOpenPopup(true)}>Add new user</Button>
@@ -59,7 +65,13 @@ function AddNewUser() {
             ))}
           </div>
           <DialogFooter>
-            <Button type="submit">Submit</Button>
+            <Button
+              className="disabled:opacity-55"
+              disabled={!handeSaveButtonValid()}
+              type="submit"
+            >
+              Submit
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
