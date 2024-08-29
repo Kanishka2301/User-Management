@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useContext } from "react";
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -11,14 +12,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { addNewUserFormControls, addNewUserFormInitialState } from "@/utils";
-import { useState } from "react";
 import { addNewUserAction } from "@/actions";
+import { UserContext } from "@/context";
 
 function AddNewUser() {
-  const [openPopup, setOpenPopup] = useState(false);
-  const [addNewUserFormData, setaddNewUserFormData] = useState(
-    addNewUserFormInitialState
-  );
+  const { openPopup, setOpenPopup, addNewUserFormData, setaddNewUserFormData } =
+    useContext(UserContext);
 
   console.log(addNewUserFormData);
 
@@ -27,6 +26,7 @@ function AddNewUser() {
       (key) => addNewUserFormData[key].trim() !== ""
     );
   }
+
   async function handleAddNewUserAction() {
     const result = await addNewUserAction(
       addNewUserFormData,
