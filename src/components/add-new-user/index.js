@@ -24,7 +24,13 @@ function AddNewUser() {
   return (
     <div>
       <Button onClick={() => setOpenPopup(true)}>Add new user</Button>
-      <Dialog open={openPopup} onOpenChange={setOpenPopup}>
+      <Dialog
+        open={openPopup}
+        onOpenChange={() => {
+          setOpenPopup(false);
+          setaddNewUserFormData(addNewUserFormInitialState);
+        }}
+      >
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Add new user</DialogTitle>

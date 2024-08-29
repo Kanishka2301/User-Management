@@ -6,8 +6,8 @@ export const addNewUserFormControls = [
     type: "input",
   },
   {
-    name: "firstName",
-    label: "First Name",
+    name: "lastName",
+    label: "Last Name",
     placeholder: "Enter your last name",
     type: "input",
   },
