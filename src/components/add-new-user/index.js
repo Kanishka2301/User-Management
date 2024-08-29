@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { addNewUserFormControls, addNewUserFormInitialState } from "@/utils";
 import { useState } from "react";
+import { addNewUserAction } from "@/actions";
 
 function AddNewUser() {
   const [openPopup, setOpenPopup] = useState(false);

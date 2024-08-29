@@ -2,11 +2,15 @@ import mongoose from "mongoose";
 
 const connectToDB = async () => {
   const url =
-    "mongodb+srv://kanishka:kanishka@23@cluster0.qzauw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+    "mongodb+srv://kanishka:kanishka23@cluster0.vw2fw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-  mongoose
-    .connect(url)
-    .then(() => console.log("Database connection successful"))
-    .catch((e) => console.log(e));
+  try {
+    await mongoose.connect(url);
+    console.log("Database connection successful");
+  } catch (error) {
+    console.error("Database connection error:", error.message);
+    throw new Error("Database connection failed");
+  }
 };
+
 export default connectToDB;

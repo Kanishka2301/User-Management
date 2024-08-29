@@ -4,26 +4,20 @@ import connectToDB from "@/database";
 import User from "@/models/user";
 
 export async function addNewUserAction(formData) {
-  await connectToDB();
-
   try {
+    await connectToDB();
+
     const newlyCreatedUser = await User.create(formData);
-    if (newlyCreatedUser) {
-      return {
-        success: true,
-        message: "User added sucessfully",
-      };
-    } else {
-      return {
-        success: false,
-        message: "Some error occured, Please try again",
-      };
-    }
+    return {
+      success: true,
+      message: "User added successfully",
+      data: newlyCreatedUser,
+    };
   } catch (error) {
-    console.log(error);
+    console.error("Error creating new user:", error.message);
     return {
       success: false,
-      message: "Some error occured, Please try again",
+      message: "Some error occurred. Please try again.",
     };
   }
 }
