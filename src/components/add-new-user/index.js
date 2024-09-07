@@ -16,8 +16,13 @@ import { addNewUserAction } from "@/actions";
 import { UserContext } from "@/context";
 
 function AddNewUser() {
-  const { openPopup, setOpenPopup, addNewUserFormData, setaddNewUserFormData } =
-    useContext(UserContext);
+  const {
+    openPopup,
+    setOpenPopup,
+    addNewUserFormData,
+    setaddNewUserFormData,
+    currentEditedID,
+  } = useContext(UserContext);
 
   console.log(addNewUserFormData);
 
@@ -49,7 +54,9 @@ function AddNewUser() {
       >
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Add new user</DialogTitle>
+            <DialogTitle>
+              {currentEditedID !== null ? "Edit User" : "Add new user"}
+            </DialogTitle>
           </DialogHeader>
           <form action={handleAddNewUserAction} className="grid gap-4 py-4">
             {addNewUserFormControls.map((controlItem) => (

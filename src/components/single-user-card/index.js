@@ -13,7 +13,7 @@ import { useContext } from "react";
 import { UserContext } from "@/context";
 
 function SingleUserCard({ user }) {
-  const { setOpenPopup, setAddNewUserFormData, setCurrentEditedID } =
+  const { setOpenPopup, setaddNewUserFormData, setCurrentEditedID } =
     useContext(UserContext);
 
   async function handleDelete(getCurrentUserID) {
@@ -23,13 +23,13 @@ function SingleUserCard({ user }) {
 
   function handleEdit(getCurrentUser) {
     setOpenPopup(true);
-    setAddNewUserFormData({
-      firstName: getCurrentUser?.firstName,
-      lastName: getCurrentUser?.lastName,
-      email: getCurrentUser?.email,
-      address: getCurrentUser?.address,
+    setaddNewUserFormData({
+      firstName: getCurrentUser?.firstName || "",
+      lastName: getCurrentUser?.lastName || "",
+      email: getCurrentUser?.email || "",
+      address: getCurrentUser?.address || "",
     });
-    setCurrentEditedID(getCurrentUser._id);
+    setCurrentEditedID(getCurrentUser?._id);
   }
 
   return (
