@@ -45,6 +45,7 @@ function AddNewUser() {
     console.log(result);
     setOpenPopup(false);
     setaddNewUserFormData(addNewUserFormInitialState);
+    setCurrentEditedID(null);
   }
 
   return (
