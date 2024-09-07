@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/label";
 import { addNewUserFormControls, addNewUserFormInitialState } from "@/utils";
 import { addNewUserAction } from "@/actions";
 import { UserContext } from "@/context";
-
+import { editUserAction } from "@/actions";
 function AddNewUser() {
   const {
     openPopup,
@@ -22,6 +22,7 @@ function AddNewUser() {
     addNewUserFormData,
     setaddNewUserFormData,
     currentEditedID,
+    setCurrentEditedID,
   } = useContext(UserContext);
 
   console.log(addNewUserFormData);
@@ -33,10 +34,14 @@ function AddNewUser() {
   }
 
   async function handleAddNewUserAction() {
-    const result = await addNewUserAction(
-      addNewUserFormData,
-      "/user-management"
-    );
+    const result =
+      currentEditedID !== null
+        ? await editUserAction(
+            currentEditedID,
+            addNewUserFormData,
+            "/user-management"
+          )
+        : await addNewUserAction(addNewUserFormData, "/user-management");
     console.log(result);
     setOpenPopup(false);
     setaddNewUserFormData(addNewUserFormInitialState);
@@ -50,6 +55,7 @@ function AddNewUser() {
         onOpenChange={() => {
           setOpenPopup(false);
           setaddNewUserFormData(addNewUserFormInitialState);
+          setCurrentEditedID(null);
         }}
       >
         <DialogContent className="sm:max-w-[425px]">

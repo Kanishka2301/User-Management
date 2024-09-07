@@ -29,7 +29,43 @@ export async function addNewUserAction(formData, pathToRevalidate) {
     };
   }
 }
+export async function editUserAction(
+  currentUserID,
+  formData,
+  pathToRevalidate
+) {
+  await connectToDB();
 
+  try {
+    const { firstName, lastName, email, address } = formData;
+
+    const updatedUser = await User.findOneAndUpdate(
+      {
+        _id: currentUserID,
+      },
+      { firstName, lastName, email, address },
+      { new: true }
+    );
+    if (updatedUser) {
+      revalidatePath(pathToRevalidate);
+      return {
+        success: true,
+        message: "User updated successfully",
+      };
+    } else {
+      return {
+        success: false,
+        message: "Not able to update the user!Please try again",
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      message: "Some error occurred. Please try again.",
+    };
+  }
+}
 export async function fetchUsersAction() {
   await connectToDB();
   try {
